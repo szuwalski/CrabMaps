@@ -63,7 +63,8 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep="")
  StationYr<-as.matrix(read.csv(textConnection(urlfile)))
  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
- load(url(urlfile))
+ download.file(urlfile,"tempCrab")
+ load("tempCrab")
  print("ok4")
  }
 
