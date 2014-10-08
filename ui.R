@@ -12,7 +12,7 @@
 
 
 shinyUI(fluidPage(
-  titlePanel("Eastern Bering Sea crabs"),
+  titlePanel("Eastern Bering Sea crab log(density) from summer surveys"),
  
 sidebarLayout(
     sidebarPanel(
@@ -28,7 +28,12 @@ sidebarLayout(
 #           "Tanner E" = 2, "Red king" = 3,
 #		"Tanner W"=4,"Hair"=5),
 #       selected = 1),
-
+      selectInput("var", 
+                  label = "Species",
+                  choices = c("Opilio", "Red king",
+                              "Tanner E", "Tanner W","Hair"),
+                  selected = "Red king"),
+      
       selectInput("sex", 
         label = "Sex",
         choices = c("Male", "Female"),
@@ -37,20 +42,14 @@ sidebarLayout(
       selectInput("scale", 
         label = "Scale to",
         choices = c("Species", "All stocks"),
-        selected = "Species"),
-    
-      selectInput("var", 
-        label = "Species",
-        choices = c("Opilio", "Red king",
-          "Tanner E", "Tanner W","Hair"),
-        selected = "Red king"),
+        selected = "Species"),  
 
       sliderInput("slider", 
         label = "Year",
         min = 1975, max = 2014, value = 1982),
 
       sliderInput("slider2", 
-        label = "Lengths",
+        label = "Lengths to display",
         min = 0, max = 245, value = c(25,205))
     ),
   
