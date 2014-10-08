@@ -51,16 +51,20 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  if(species!="Snow2014" & species!="Snow2000")
  {
  yearUse<-year
+ print("ok1")
  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_",sexUse,".csv",sep="")
  Density<-(read.csv(urlfile))
+ print("ok2")
  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_LOC.csv",sep="")
  AllStnLoc<-matrix(as.numeric(unlist(read.csv(urlfile))),ncol=2)
+ print("ok3")
  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNall.csv",sep="")
  AllStation<-as.vector(unlist(read.csv(urlfile)))
  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep="")
  StationYr<-as.matrix(read.csv(urlfile))
  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
  load(url(urlfile))
+ print("ok4")
  }
 
 urlfile<-"https://raw.githubusercontent.com/szuwalski/CrabMaps/master/MaxDensities.csv"
@@ -127,4 +131,4 @@ panel.3dmap <- function(..., rot.mat, distance, xlim,
 
  print(pl)
 }
-#EBSmaps("male","RKC",20,5,30,0)
+#EBSmaps("male","RKC",27,5,30,0)
