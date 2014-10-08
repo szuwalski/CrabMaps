@@ -1,7 +1,7 @@
 EBSmaps<-function(sex,species,year,length1,length2,allZlim)
 {
  #sex<-"male"
- #species<-"Opilio"
+ #species<-"RKC"
  #year<-23
  #length1<-1
  #length2<-20
@@ -53,7 +53,7 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  yearUse<-year
  print("ok1")
  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_",sexUse,".csv",sep="")
- Density<-(read.csv(urlfile))
+ Density<-(read.csv(textConnection(urlfile)))
  print("ok2")
  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_LOC.csv",sep="")
  AllStnLoc<-matrix(as.numeric(unlist(read.csv(urlfile))),ncol=2)
