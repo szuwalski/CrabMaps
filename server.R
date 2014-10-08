@@ -5,6 +5,8 @@ library(maptools)   #useful tools such as reading shapefiles
 library(mapproj)
 library(ggmap)
 library(RCurl)
+library(roxygen2)
+library(devtools)
 
 source("EBSmaps.R")
 
