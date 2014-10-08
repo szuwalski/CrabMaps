@@ -127,4 +127,4 @@ panel.3dmap <- function(..., rot.mat, distance, xlim,
 
  print(pl)
 }
-#EBSmaps("male","RKC",20,5,30,0)
+EBSmaps("male","RKC",20,5,30,0)
