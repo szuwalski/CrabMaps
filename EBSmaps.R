@@ -19,34 +19,34 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  {
  species<-"Snow2000"
  yearUse<-year
- Density<-log(as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_",sexUse,".csv",sep=""))))
- AllStnLoc<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_LOC.csv",sep="")))
- AllStation<-as.vector(unlist(read.csv(paste("C:/Shiny/EBScrab/",species,"_STNall.csv",sep=""))))
- StationYr<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_STNyr.csv",sep="")))
- LenFreq<-load(paste("C:/Shiny/EBScrab/",species,"_lengths",sexUse,".RData",sep=""))
+ Density<-log(as.matrix(read.csv(paste("C:/CrabMaps/",species,"_",sexUse,".csv",sep=""))))
+ AllStnLoc<-as.matrix(read.csv(paste("C:/CrabMaps/",species,"_LOC.csv",sep="")))
+ AllStation<-as.vector(unlist(read.csv(paste("C:/CrabMaps/",species,"_STNall.csv",sep=""))))
+ StationYr<-as.matrix(read.csv(paste("C:/CrabMaps/",species,"_STNyr.csv",sep="")))
+ LenFreq<-load(paste("C:/CrabMaps/",species,"_lengths",sexUse,".RData",sep=""))
  }
  if(species=="Opilio" &year>=(2000-1974))
  { 
  species<-"Snow2014"
  yearUse<-(year-25)
- Density<-log(as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_",sexUse,".csv",sep=""))))
- AllStnLoc<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_LOC.csv",sep="")))
- AllStation<-as.vector(unlist(read.csv(paste("C:/Shiny/EBScrab/",species,"_STNall.csv",sep=""))))
- StationYr<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_STNyr.csv",sep="")))
- LenFreq<-load(paste("C:/Shiny/EBScrab/",species,"_lengths",sexUse,".RData",sep=""))
+ Density<-log(as.matrix(read.csv(paste("C:/CrabMaps/",species,"_",sexUse,".csv",sep=""))))
+ AllStnLoc<-as.matrix(read.csv(paste("C:/CrabMaps/",species,"_LOC.csv",sep="")))
+ AllStation<-as.vector(unlist(read.csv(paste("C:/CrabMaps/",species,"_STNall.csv",sep=""))))
+ StationYr<-as.matrix(read.csv(paste("C:/CrabMaps/",species,"_STNyr.csv",sep="")))
+ LenFreq<-load(paste("C:/CrabMaps/",species,"_lengths",sexUse,".RData",sep=""))
  }
 
  if(species!="Snow2014" & species!="Snow2000")
  {
  yearUse<-year
- Density<-log(as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_",sexUse,".csv",sep=""))) )
- AllStnLoc<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_LOC.csv",sep="")))
- AllStation<-as.vector(unlist(read.csv(paste("C:/Shiny/EBScrab/",species,"_STNall.csv",sep=""))))
- StationYr<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_STNyr.csv",sep="")))
- load(paste("C:/Shiny/EBScrab/",species,"_lengths",sexUse,".RData",sep=""))
+ Density<-log(as.matrix(read.csv(paste("C:/CrabMaps/",species,"_",sexUse,".csv",sep=""))) )
+ AllStnLoc<-as.matrix(read.csv(paste("C:/CrabMaps/",species,"_LOC.csv",sep="")))
+ AllStation<-as.vector(unlist(read.csv(paste("C:/CrabMaps/",species,"_STNall.csv",sep=""))))
+ StationYr<-as.matrix(read.csv(paste("C:/CrabMaps/",species,"_STNyr.csv",sep="")))
+ load(paste("C:/CrabMaps/",species,"_lengths",sexUse,".RData",sep=""))
  }
 
- maxDen<-(read.csv("C:/Shiny/EBScrab/MaxDensities.csv"))
+ maxDen<-(read.csv("C:/CrabMaps/MaxDensities.csv"))
  if(allZlim==1)
   useZlim<-max(log(maxDen[,2:3]))
  if(allZlim==0)
