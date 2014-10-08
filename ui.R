@@ -23,7 +23,7 @@ sidebarLayout(
 #           "Tanner E" = 2, "Red king" = 3,
 #		"Tanner W"=4,"Hair"=5),
 #       selected = 1),
-      helpText("Spatial distribution of log(density) from summer surveys"),
+#       helpText("Spatial distribution of log(density) from summer surveys"),
       selectInput("var", 
                   label = "Species",
                   choices = c("Opilio", "Red king",
