@@ -81,7 +81,7 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  }
 
 urlfile<-"https://raw.githubusercontent.com/szuwalski/CrabMaps/master/MaxDensities.csv"
-maxDen<-read.csv(urlfile))
+maxDen<-read.csv(urlfile)
 
  if(allZlim==1)
   useZlim<-max(log(maxDen[,2:3]))
