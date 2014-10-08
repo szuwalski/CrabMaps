@@ -3,13 +3,16 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  #sex<-"male"
  #species<-"RKC"
  #year<-20
+ #length1<-1
+ #length2<-20
+ #allZlim<-0
  #==read in density and locations based on above
   sexUse<-"F"
-  colUse<-2
+  colUse<-"#FF00088"
  if(sex=='male')
   {
   sexUse<-"M"
-  colUse<-4
+  colUse<-"#0000FF88"
   }
 #==this "if then" abomination brought to you by excel's line limit
  if(species=="Opilio" &year<(2000-1974))
@@ -35,22 +38,20 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  if(species!="Opilio")
  {
  yearUse<-year
- Density<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_",sexUse,".csv",sep="")))
+ Density<-log(as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_",sexUse,".csv",sep=""))) )
  AllStnLoc<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_LOC.csv",sep="")))
  AllStation<-as.vector(unlist(read.csv(paste("C:/Shiny/EBScrab/",species,"_STNall.csv",sep=""))))
  StationYr<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_STNyr.csv",sep="")))
  load(paste("C:/Shiny/EBScrab/",species,"_lengths",sexUse,".RData",sep=""))
  }
 
- maxDen<-read.csv("C:/Shiny/EBScrab/MaxDensities.csv")
+ maxDen<-(read.csv("C:/Shiny/EBScrab/MaxDensities.csv"))
  if(allZlim==1)
-  useZlim<-max(maxDen[,2:3])
+  useZlim<-max(log(maxDen[,2:3]))
  if(allZlim==0)
-  useZlim<-maxDen[which(maxDen[,1]==species),2]
+  useZlim<-log(maxDen[which(maxDen[,1]==species),2])
  if(sexUse=="F")
-  useZlim<-maxDen[which(maxDen[,1]==species),3]
-
- 
+  useZlim<-log(maxDen[which(maxDen[,1]==species),3])
 
  if(sexUse=="M")
   useLens<-NatLengthM
@@ -106,4 +107,4 @@ panel.3dmap <- function(..., rot.mat, distance, xlim,
 
  print(pl)
 }
-#EBSmaps("male","RKC",20,5,30)
+#EBSmaps("male","RKC",20,5,30,0)
