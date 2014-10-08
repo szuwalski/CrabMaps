@@ -4,6 +4,7 @@ library("lattice")
 library(maptools)   #useful tools such as reading shapefiles
 library(mapproj)
 library(ggmap)
+library(RCurl)
 
 source("EBSmaps.R")
 

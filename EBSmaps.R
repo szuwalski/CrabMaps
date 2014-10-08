@@ -2,7 +2,7 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
 {
  #sex<-"male"
  #species<-"Opilio"
- #year<-26
+ #year<-23
  #length1<-1
  #length2<-20
  #allZlim<-0
@@ -19,34 +19,53 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  {
  species<-"Snow2000"
  yearUse<-year
- Density<-log(as.matrix(read.csv(paste("C:/CrabMaps/",species,"_",sexUse,".csv",sep=""))))
- AllStnLoc<-as.matrix(read.csv(paste("C:/CrabMaps/",species,"_LOC.csv",sep="")))
- AllStation<-as.vector(unlist(read.csv(paste("C:/CrabMaps/",species,"_STNall.csv",sep=""))))
- StationYr<-as.matrix(read.csv(paste("C:/CrabMaps/",species,"_STNyr.csv",sep="")))
- LenFreq<-load(paste("C:/CrabMaps/",species,"_lengths",sexUse,".RData",sep=""))
+ 
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_",sexUse,".csv",sep="")
+ Density<-(read.csv(urlfile))
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_LOC.csv",sep="")
+ AllStnLoc<-matrix(as.numeric(unlist(read.csv(urlfile))),ncol=2)
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNall.csv",sep="")
+ AllStation<-as.vector(unlist(read.csv(urlfile)))
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep="")
+ StationYr<-as.matrix(read.csv(urlfile))
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
+ load(url(urlfile))
+ 
  }
  if(species=="Opilio" &year>=(2000-1974))
  { 
  species<-"Snow2014"
  yearUse<-(year-25)
- Density<-log(as.matrix(read.csv(paste("C:/CrabMaps/",species,"_",sexUse,".csv",sep=""))))
- AllStnLoc<-as.matrix(read.csv(paste("C:/CrabMaps/",species,"_LOC.csv",sep="")))
- AllStation<-as.vector(unlist(read.csv(paste("C:/CrabMaps/",species,"_STNall.csv",sep=""))))
- StationYr<-as.matrix(read.csv(paste("C:/CrabMaps/",species,"_STNyr.csv",sep="")))
- LenFreq<-load(paste("C:/CrabMaps/",species,"_lengths",sexUse,".RData",sep=""))
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_",sexUse,".csv",sep="")
+ Density<-(read.csv(urlfile))
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_LOC.csv",sep="")
+ AllStnLoc<-matrix(as.numeric(unlist(read.csv(urlfile))),ncol=2)
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNall.csv",sep="")
+ AllStation<-as.vector(unlist(read.csv(urlfile)))
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep="")
+ StationYr<-as.matrix(read.csv(urlfile))
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
+ load(url(urlfile))
  }
 
  if(species!="Snow2014" & species!="Snow2000")
  {
  yearUse<-year
- Density<-log(as.matrix(read.csv(paste("C:/CrabMaps/",species,"_",sexUse,".csv",sep=""))) )
- AllStnLoc<-as.matrix(read.csv(paste("C:/CrabMaps/",species,"_LOC.csv",sep="")))
- AllStation<-as.vector(unlist(read.csv(paste("C:/CrabMaps/",species,"_STNall.csv",sep=""))))
- StationYr<-as.matrix(read.csv(paste("C:/CrabMaps/",species,"_STNyr.csv",sep="")))
- load(paste("C:/CrabMaps/",species,"_lengths",sexUse,".RData",sep=""))
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_",sexUse,".csv",sep="")
+ Density<-(read.csv(urlfile))
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_LOC.csv",sep="")
+ AllStnLoc<-matrix(as.numeric(unlist(read.csv(urlfile))),ncol=2)
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNall.csv",sep="")
+ AllStation<-as.vector(unlist(read.csv(urlfile)))
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep="")
+ StationYr<-as.matrix(read.csv(urlfile))
+ urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
+ load(url(urlfile))
  }
 
- maxDen<-(read.csv("C:/CrabMaps/MaxDensities.csv"))
+urlfile<-"https://raw.githubusercontent.com/szuwalski/CrabMaps/master/MaxDensities.csv"
+maxDen<-read.csv(urlfile)
+
  if(allZlim==1)
   useZlim<-max(log(maxDen[,2:3]))
  if(allZlim==0)
@@ -59,7 +78,7 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  if(sexUse=="F")
   useLens<-NatLengthF
 
-useDensity<-Density[yearUse,]
+useDensity<-log(as.numeric(Density[yearUse,]))
 for(x in 1:ncol(Density))
 {
  tempLen<-useLens[yearUse,x,]
