@@ -1,14 +1,14 @@
 EBSmaps<-function(sex,species,year,length1,length2,allZlim)
 {
  #sex<-"male"
- #species<-"RKC"
- #year<-20
+ #species<-"Opilio"
+ #year<-26
  #length1<-1
  #length2<-20
  #allZlim<-0
  #==read in density and locations based on above
   sexUse<-"F"
-  colUse<-"#FF00088"
+  colUse<-"#FF000088"
  if(sex=='male')
   {
   sexUse<-"M"
@@ -19,7 +19,7 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  {
  species<-"Snow2000"
  yearUse<-year
- Density<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_",sexUse,".csv",sep="")))
+ Density<-log(as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_",sexUse,".csv",sep=""))))
  AllStnLoc<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_LOC.csv",sep="")))
  AllStation<-as.vector(unlist(read.csv(paste("C:/Shiny/EBScrab/",species,"_STNall.csv",sep=""))))
  StationYr<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_STNyr.csv",sep="")))
@@ -29,13 +29,14 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  { 
  species<-"Snow2014"
  yearUse<-(year-25)
- Density<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_",sexUse,".csv",sep="")))
+ Density<-log(as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_",sexUse,".csv",sep=""))))
  AllStnLoc<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_LOC.csv",sep="")))
  AllStation<-as.vector(unlist(read.csv(paste("C:/Shiny/EBScrab/",species,"_STNall.csv",sep=""))))
  StationYr<-as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_STNyr.csv",sep="")))
  LenFreq<-load(paste("C:/Shiny/EBScrab/",species,"_lengths",sexUse,".RData",sep=""))
  }
- if(species!="Opilio")
+
+ if(species!="Snow2014" & species!="Snow2000")
  {
  yearUse<-year
  Density<-log(as.matrix(read.csv(paste("C:/Shiny/EBScrab/",species,"_",sexUse,".csv",sep=""))) )
@@ -76,8 +77,8 @@ state.map <- map('worldHires', xlim=c(-175, -155.9), ylim=c(50, 65.5),
 #state.map<-get_map(location = c(lat=57,lon=-165), source = "google", zoom = 5,maptype="satellite")
 # temp<-ggmap(state.map)
 
-tempLon<-AllStnLoc[match(StationYr[year,],AllStation,),2]
-tempLat<-AllStnLoc[match(StationYr[year,],AllStation,),1]
+tempLon<-AllStnLoc[match(StationYr[yearUse,],AllStation,),2]
+tempLat<-AllStnLoc[match(StationYr[yearUse,],AllStation,),1]
 
 state.info <- data.frame(density = useDensity,
  long = tempLon, lat = tempLat)

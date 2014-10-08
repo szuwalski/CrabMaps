@@ -1,2 +1,2 @@
 library(shiny)
-runApp("C:/Shiny/EBScrab")
+runApp("C:/CrabMaps")
