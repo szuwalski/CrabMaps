@@ -3,8 +3,8 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
 #  sex<-"male"
 #  species<-"RKC"
 #  year<-23
- length1<-1
- length2<-5
+#  length1<-1
+#  length2<-5
 #  allZlim<-0
  #==read in density and locations based on above
   sexUse<-"F"
@@ -59,8 +59,10 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  AllStation<-as.vector(unlist(read.csv(textConnection(urlfile))))
  urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep=""),ssl.verifypeer = FALSE)
  StationYr<-as.matrix(read.csv(textConnection(urlfile)))
- urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_length",sexUse,".csv",sep=""),ssl.verifypeer = FALSE)
- LenFreq<-as.matrix(read.csv(textConnection(urlfile)))
+#  urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_length",sexUse,".csv",sep=""),ssl.verifypeer = FALSE)
+#  LenFreq<-as.matrix(read.csv(textConnection(urlfile)))
+  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
+  load(url(urlfile))
  }
 
 urlfile<-getURL("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/MaxDensities.csv",ssl.verifypeer = FALSE)
@@ -74,11 +76,14 @@ maxDen<-read.csv(textConnection(urlfile))
  if(sexUse=="F")
   useZlim<-log(maxDen[which(maxDen[,1]==species),3])
 
-LenFreqArr<-array(dim=c(40,ncol(LenFreq),50))
-cntr<-seq(1,2060,40)
-for(p in 1:50)
- LenFreqArr[,,p]<-LenFreq[cntr[p]:(cntr[p+1]-1),]
-
+# LenFreqArr<-array(dim=c(40,ncol(LenFreq),50))
+# cntr<-seq(1,2060,40)
+# for(p in 1:50)
+#  LenFreqArr[,,p]<-LenFreq[cntr[p]:(cntr[p+1]-1),]
+if(sexUse=="F")
+LenFreqArr<-NatLengthF
+if(sexUse=="M")
+  LenFreqArr<-NatLengthM
 useDensity<-log(as.numeric(Density[yearUse,]))
 for(x in 1:ncol(Density))
 {
@@ -130,5 +135,5 @@ panel.3dmap <- function(..., rot.mat, distance, xlim,
 
  print(pl)
 }
-#EBSmaps("male","RKC",27,5,16,0)
+EBSmaps("male","RKC",27,5,50,0)
 
