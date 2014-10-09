@@ -7,7 +7,8 @@ library(ggmap)
 library(RCurl)
 library(roxygen2)
 library(devtools)
-setInternet2(TRUE)
+library(PBSmapping)
+
 source("EBSmaps.R")
 
 shinyServer(
