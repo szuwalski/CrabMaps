@@ -4,4 +4,4 @@ runGitHub("CrabMaps","szuwalski")
 
 library(shinyapps)
 deployApp()
-# terminateApp()
+terminateApp()

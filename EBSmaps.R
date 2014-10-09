@@ -59,8 +59,8 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  AllStation<-as.vector(unlist(read.csv(urlfile)))
  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep="")
  StationYr<-as.matrix(read.csv(urlfile))
- urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
- load(url(urlfile))
+#  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
+#  load(url(urlfile))
 #  print("ok1")
 #  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_",sexUse,".csv",sep="")
 #  Density<-(read.csv(textConnection(urlfile)))
@@ -91,10 +91,11 @@ maxDen<-read.csv(urlfile)
   useZlim<-log(maxDen[which(maxDen[,1]==species),3])
 
  if(sexUse=="M")
-  useLens<-NatLengthM
- if(sexUse=="F")
-  useLens<-NatLengthF
-
+#   useLens<-NatLengthM
+  useLens<-NULL
+if(sexUse=="F")
+  useLens<-NULL
+# useLens<-NatLengthF
 useDensity<-log(as.numeric(Density[yearUse,]))
 for(x in 1:ncol(Density))
 {
@@ -144,4 +145,4 @@ panel.3dmap <- function(..., rot.mat, distance, xlim,
 
  print(pl)
 }
-#EBSmaps("male","RKC",27,5,30,0)
+EBSmaps("male","RKC",27,5,30,0)
