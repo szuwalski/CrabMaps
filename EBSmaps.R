@@ -28,8 +28,8 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  AllStation<-as.vector(unlist(read.csv(urlfile)))
  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep="")
  StationYr<-as.matrix(read.csv(urlfile))
- urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
- load(url(urlfile))
+#  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
+#  load(url(urlfile))
  
  }
  if(species=="Opilio" &year>=(2000-1974))
@@ -44,8 +44,8 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  AllStation<-as.vector(unlist(read.csv(urlfile)))
  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep="")
  StationYr<-as.matrix(read.csv(urlfile))
- urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
- load(url(urlfile))
+#  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
+#  load(url(urlfile))
  }
 
  if(species!="Snow2014" & species!="Snow2000")
