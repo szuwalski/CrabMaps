@@ -7,6 +7,7 @@ library(ggmap)
 library(RCurl)
 library(roxygen2)
 library(devtools)
+library(RCurl)
 # library(PBSmapping)
 
 source("EBSmaps.R")

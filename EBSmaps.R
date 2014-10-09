@@ -1,11 +1,11 @@
 EBSmaps<-function(sex,species,year,length1,length2,allZlim)
 {
- #sex<-"male"
- #species<-"RKC"
- #year<-23
- #length1<-1
- #length2<-20
- #allZlim<-0
+#  sex<-"male"
+#  species<-"RKC"
+#  year<-23
+ length1<-1
+ length2<-5
+#  allZlim<-0
  #==read in density and locations based on above
   sexUse<-"F"
   colUse<-"#FF000088"
@@ -75,9 +75,9 @@ maxDen<-read.csv(textConnection(urlfile))
   useZlim<-log(maxDen[which(maxDen[,1]==species),3])
 
 LenFreqArr<-array(dim=c(40,ncol(LenFreq),50))
-cntr<-seq(1,2000,40)
+cntr<-seq(1,2060,40)
 for(p in 1:50)
- LenFreqArr[,,p]<-LenFreq[cntr[p],]
+ LenFreqArr[,,p]<-LenFreq[cntr[p]:(cntr[p+1]-1),]
 
 useDensity<-log(as.numeric(Density[yearUse,]))
 for(x in 1:ncol(Density))
@@ -90,7 +90,9 @@ for(x in 1:ncol(Density))
  }
 }
 
- #==plot map
+#==Length frequencies are wrong, recalculate?
+
+#==plot map
 state.map <- map('worldHires', xlim=c(-175, -155.9), ylim=c(50, 65.5),
                   plot = FALSE, fill = TRUE,col='grey85')
 
@@ -128,4 +130,5 @@ panel.3dmap <- function(..., rot.mat, distance, xlim,
 
  print(pl)
 }
-EBSmaps("male","RKC",27,5,30,0)
+#EBSmaps("male","RKC",27,5,16,0)
+
