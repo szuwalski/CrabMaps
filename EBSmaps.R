@@ -20,15 +20,15 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  species<-"Snow2000"
  yearUse<-year
  
- urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_",sexUse,".csv",sep="")
- Density<-(read.csv(urlfile))
- urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_LOC.csv",sep="")
- AllStnLoc<-matrix(as.numeric(unlist(read.csv(urlfile))),ncol=2)
- urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNall.csv",sep="")
- AllStation<-as.vector(unlist(read.csv(urlfile)))
- urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep="")
- StationYr<-as.matrix(read.csv(urlfile))
-#  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
+ urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_",sexUse,".csv",sep=""),ssl.verifypeer = FALSE)
+ Density<-(read.csv(textConnection(urlfile)))
+ urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_LOC.csv",sep=""),ssl.verifypeer = FALSE)
+ AllStnLoc<-matrix(as.numeric(unlist(read.csv(textConnection(urlfile)))),ncol=2)
+ urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNall.csv",sep=""),ssl.verifypeer = FALSE)
+ AllStation<-as.vector(unlist(read.csv(textConnection(urlfile))))
+ urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep=""),ssl.verifypeer = FALSE)
+ StationYr<-as.matrix(read.csv(textConnection(urlfile)))
+ #  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
 #  load(url(urlfile))
  
  }
@@ -36,15 +36,15 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  { 
  species<-"Snow2014"
  yearUse<-(year-25)
- urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_",sexUse,".csv",sep="")
- Density<-(read.csv(urlfile))
- urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_LOC.csv",sep="")
- AllStnLoc<-matrix(as.numeric(unlist(read.csv(urlfile))),ncol=2)
- urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNall.csv",sep="")
- AllStation<-as.vector(unlist(read.csv(urlfile)))
- urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep="")
- StationYr<-as.matrix(read.csv(urlfile))
-#  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
+ urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_",sexUse,".csv",sep=""),ssl.verifypeer = FALSE)
+ Density<-(read.csv(textConnection(urlfile)))
+ urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_LOC.csv",sep=""),ssl.verifypeer = FALSE)
+ AllStnLoc<-matrix(as.numeric(unlist(read.csv(textConnection(urlfile)))),ncol=2)
+ urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNall.csv",sep=""),ssl.verifypeer = FALSE)
+ AllStation<-as.vector(unlist(read.csv(textConnection(urlfile))))
+ urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep=""),ssl.verifypeer = FALSE)
+ StationYr<-as.matrix(read.csv(textConnection(urlfile)))
+ #  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
 #  load(url(urlfile))
  }
 
@@ -59,8 +59,8 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  AllStation<-as.vector(unlist(read.csv(textConnection(urlfile))))
  urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep=""),ssl.verifypeer = FALSE)
  StationYr<-as.matrix(read.csv(textConnection(urlfile)))
-#  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep=""),ssl.verifypeer = FALSE)
-#  load(url(urlfile))
+ urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_length",sexUse,".csv",sep=""),ssl.verifypeer = FALSE)
+ LenFreq<-as.matrix(read.csv(textConnection(urlfile)))
  }
 
 urlfile<-getURL("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/MaxDensities.csv",ssl.verifypeer = FALSE)
@@ -74,16 +74,15 @@ maxDen<-read.csv(textConnection(urlfile))
  if(sexUse=="F")
   useZlim<-log(maxDen[which(maxDen[,1]==species),3])
 
- if(sexUse=="M")
-#   useLens<-NatLengthM
-  useLens<-NULL
-if(sexUse=="F")
-  useLens<-NULL
-# useLens<-NatLengthF
+LenFreqArr<-array(dim=c(40,ncol(LenFreq),50))
+cntr<-seq(1,2000,40)
+for(p in 1:50)
+ LenFreqArr[,,p]<-LenFreq[cntr[p],]
+
 useDensity<-log(as.numeric(Density[yearUse,]))
 for(x in 1:ncol(Density))
 {
- tempLen<-useLens[yearUse,x,]
+ tempLen<-LenFreqArr[yearUse,x,]
  if(sum(tempLen)>0)
  {
  fracInRng<-sum(tempLen[length1:length2])/sum(tempLen)
