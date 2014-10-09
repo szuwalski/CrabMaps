@@ -1,7 +1,7 @@
 EBSmaps<-function(sex,species,year,length1,length2,allZlim)
 {
 #  sex<-"male"
-#  species<-"RKC"
+#  species<-"Opilio"
 #  year<-23
 #  length1<-1
 #  length2<-5
@@ -19,7 +19,7 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  {
  species<-"Snow2000"
  yearUse<-year
- 
+
  urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_",sexUse,".csv",sep=""),ssl.verifypeer = FALSE)
  Density<-(read.csv(textConnection(urlfile)))
  urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_LOC.csv",sep=""),ssl.verifypeer = FALSE)
@@ -28,9 +28,13 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  AllStation<-as.vector(unlist(read.csv(textConnection(urlfile))))
  urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep=""),ssl.verifypeer = FALSE)
  StationYr<-as.matrix(read.csv(textConnection(urlfile)))
- #  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
-#  load(url(urlfile))
- 
+ urlfileLen<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_length",sexUse,".csv",sep=""),ssl.verifypeer = FALSE)
+ #  if(saveLnF!=urlfileLen)
+ LenFreq<-as.matrix(read.csv(textConnection(urlfileLen)))
+ #   urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
+ #   load(url(urlfile))
+ saveLnF<-urlfile
+ totYrs<-25
  }
  if(species=="Opilio" &year>=(2000-1974))
  { 
@@ -44,8 +48,13 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
  AllStation<-as.vector(unlist(read.csv(textConnection(urlfile))))
  urlfile<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_STNyr.csv",sep=""),ssl.verifypeer = FALSE)
  StationYr<-as.matrix(read.csv(textConnection(urlfile)))
- #  urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
-#  load(url(urlfile))
+ urlfileLen<-getURL(paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_length",sexUse,".csv",sep=""),ssl.verifypeer = FALSE)
+ #  if(saveLnF!=urlfileLen)
+ LenFreq<-as.matrix(read.csv(textConnection(urlfileLen)))
+ #   urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
+ #   load(url(urlfile))
+ saveLnF<-urlfile
+ totYrs<-15
  }
 
  if(species!="Snow2014" & species!="Snow2000")
@@ -65,6 +74,7 @@ EBSmaps<-function(sex,species,year,length1,length2,allZlim)
 #   urlfile<-paste("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/",species,"_lengths",sexUse,".RData",sep="")
 #   load(url(urlfile))
  saveLnF<-urlfile
+totYrs<-40
  }
 
 urlfile<-getURL("https://raw.githubusercontent.com/szuwalski/CrabMaps/master/MaxDensities.csv",ssl.verifypeer = FALSE)
@@ -78,8 +88,8 @@ maxDen<-read.csv(textConnection(urlfile))
  if(sexUse=="F")
   useZlim<-log(maxDen[which(maxDen[,1]==species),3])
 
-LenFreqArr<-array(dim=c(40,ncol(LenFreq),50))
-cntr<-seq(1,2060,40)
+LenFreqArr<-array(dim=c(totYrs,ncol(LenFreq),50))
+cntr<-seq(1,nrow(LenFreq)+1,totYrs)
 for(p in 1:50)
  LenFreqArr[,,p]<-LenFreq[cntr[p]:(cntr[p+1]-1),]
 # if(sexUse=="F")
