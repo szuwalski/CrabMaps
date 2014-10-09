@@ -11,7 +11,7 @@ datfiles<-c("RKC","TannerE","TannerW","Snow2000","Snow2014","Hair")
 BinSize<-5
 LengthBin<-seq(0,250,BinSize)
 
-for(p in 4:length(datfiles))
+for(p in 2:length(datfiles))
 {
 survDAT<-get(datfiles[p])
 drvYear<-as.numeric(substr(survDAT$CRUISE,1,4))
@@ -122,8 +122,16 @@ write.csv(DensityF2,paste("C:/Shiny/EBScrab/",datfiles[p],"_F.csv",sep=""),row.n
 write.csv(AllStnLoc,paste("C:/Shiny/EBScrab/",datfiles[p],"_LOC.csv",sep=""),row.names=F)
 write.csv(AllStation,paste("C:/Shiny/EBScrab/",datfiles[p],"_STNall.csv",sep=""),row.names=F)
 write.csv(StationYr,paste("C:/Shiny/EBScrab/",datfiles[p],"_STNyr.csv",sep=""),row.names=F)
-save(NatLengthF,file=paste("C:/Shiny/EBScrab/",datfiles[p],"_lengthsF.RData",sep=""))
-save(NatLengthM,file=paste("C:/Shiny/EBScrab/",datfiles[p],"_lengthsM.RData",sep=""))
+
+tempNLM<-NULL
+for(q in 1:50)
+ tempNLM<-rbind(tempNLM,NatLengthM[,,q])
+write.csv(tempNLM,paste("C:/Shiny/EBScrab/",datfiles[p],"_lengthM.csv",sep=""),row.names=F)
+tempNLM<-NULL
+for(q in 1:50)
+ tempNLM<-rbind(tempNLM,NatLengthF[,,q])
+write.csv(tempNLM,paste("C:/Shiny/EBScrab/",datfiles[p],"_lengthF.csv",sep=""),row.names=F)
+
 }#species
 
 
